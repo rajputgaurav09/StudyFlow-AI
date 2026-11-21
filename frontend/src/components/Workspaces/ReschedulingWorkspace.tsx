@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { RescheduleResult, Session } from '../../types';
+import { RescheduleResult } from '../../types';
 import {
   RefreshCw,
   ShieldCheck,
-  AlertTriangle,
   CheckCircle2,
-  Clock,
   ArrowRight,
   GitCompare,
-  ListPlus,
-  Sparkles,
-  Layers
+  ListPlus
 } from 'lucide-react';
 import { ValidationBanner } from '../Common/ValidationBanner';
 
 export const ReschedulingWorkspace: React.FC = () => {
   const {
     currentPlan,
-    availableHours,
-    startTime,
     reschedulePlan,
     rescheduling,
     error,

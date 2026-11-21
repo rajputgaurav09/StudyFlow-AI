@@ -8,10 +8,7 @@ import {
   AlertCircle,
   ArrowRight,
   TrendingUp,
-  BookOpen,
   Calendar,
-  Layers,
-  ShieldCheck,
   Coffee
 } from 'lucide-react';
 import { ValidationBanner } from '../Common/ValidationBanner';
@@ -22,8 +19,7 @@ export const OverviewWorkspace: React.FC = () => {
     subjects,
     availableHours,
     validation,
-    setActiveWorkspace,
-    health
+    setActiveWorkspace
   } = usePlan();
 
   const sessions = currentPlan?.sessions || [];

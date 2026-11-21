@@ -2,16 +2,9 @@ import React from 'react';
 import {
   GraduationCap,
   Users,
-  Award,
   Layers,
-  Cpu,
   ShieldCheck,
-  CheckCircle2,
-  FileText,
-  AlertTriangle,
-  Sparkles,
-  Terminal,
-  ExternalLink
+  AlertTriangle
 } from 'lucide-react';
 
 export const AboutDocWorkspace: React.FC = () => {

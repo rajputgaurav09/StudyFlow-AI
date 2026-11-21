@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlanValidation } from '../../types';
-import { CheckCircle2, AlertTriangle, XCircle, Info, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
 
 interface Props {
   validation: PlanValidation | null;

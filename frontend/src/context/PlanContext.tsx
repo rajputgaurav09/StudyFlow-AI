@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import {
   Subject,
-  Session,
   StudyPlan,
   PlanValidation,
   RescheduleResult,

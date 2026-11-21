@@ -4,17 +4,10 @@ import { PromptMetadata, PromptTestResult } from '../../types';
 import { api } from '../../api/client';
 import {
   FlaskConical,
-  Code2,
   Play,
-  Clock,
   CheckCircle2,
   AlertCircle,
-  Copy,
-  ChevronRight,
-  GitBranch,
-  Layers,
-  Sparkles,
-  ShieldCheck
+  Copy
 } from 'lucide-react';
 import { ValidationBanner } from '../Common/ValidationBanner';
 

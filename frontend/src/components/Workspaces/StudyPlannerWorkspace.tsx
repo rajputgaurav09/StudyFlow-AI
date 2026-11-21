@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePlan } from '../../context/PlanContext';
 import { Subject, Priority, Preset } from '../../types';
-import { api } from '../../api/client';
 import {
   Plus,
   Trash2,
   Calendar,
-  Clock,
   Sparkles,
   AlertCircle,
-  HelpCircle,
-  Layers,
   Flame,
   CheckCircle2,
   Edit2
@@ -20,7 +16,6 @@ import { ValidationBanner } from '../Common/ValidationBanner';
 export const StudyPlannerWorkspace: React.FC = () => {
   const {
     subjects,
-    setSubjects,
     addSubject,
     updateSubject,
     removeSubject,
@@ -53,7 +48,7 @@ export const StudyPlannerWorkspace: React.FC = () => {
   const [editDays, setEditDays] = useState(5);
   const [editPriority, setEditPriority] = useState<Priority>('Medium');
 
-  const [presets, setPresets] = useState<Preset[]>([
+  const presets: Preset[] = [
     {
       id: 'preset-crunch',
       title: 'Three-Subject Crunch',
@@ -89,7 +84,7 @@ export const StudyPlannerWorkspace: React.FC = () => {
       available_hours: 5.0,
       start_time: '08:00'
     }
-  ]);
+  ];
 
   const handleAddSubject = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { Session, SessionType } from '../../types';
 import { api } from '../../api/client';
 import {
-  Clock,
   CheckCircle2,
-  Download,
   FileText,
   FileCode,
   Coffee,
-  BookOpen,
   Filter,
   CheckSquare,
   Square,
-  Sparkles,
   CalendarDays,
   Info
 } from 'lucide-react';
@@ -22,15 +17,12 @@ import { ValidationBanner } from '../Common/ValidationBanner';
 export const TimetableWorkspace: React.FC = () => {
   const {
     currentPlan,
-    availableHours,
-    startTime,
     validation,
     toggleSessionCompletion,
     setActiveWorkspace
   } = usePlan();
 
   const [typeFilter, setTypeFilter] = useState<string>('all');
-  const [downloading, setDownloading] = useState<string | null>(null);
 
   const sessions = currentPlan?.sessions || [];
   const completedCount = sessions.filter(s => s.completed).length;

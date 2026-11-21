@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { Sparkles, Sun, Moon, Cpu, CheckCircle2, Clock, BookOpen } from 'lucide-react';
+import { Sun, Moon, Clock, BookOpen } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { currentPlan, subjects, availableHours, health, theme, toggleTheme } = usePlan();

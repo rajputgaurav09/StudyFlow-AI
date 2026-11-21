@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlanProvider } from './context/PlanContext';
 import { WorkspaceContainer } from './components/Layout/WorkspaceContainer';
 

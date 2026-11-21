@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import { ValidationBanner } from '../components/Common/ValidationBanner';
-import { PlanValidation } from '../../types';
+import { PlanValidation } from '../types';
 
 describe('ValidationBanner Component', () => {
   it('renders verified compliant state when valid is true', () => {
