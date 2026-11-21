@@ -1,0 +1,17 @@
+================================================================================
+PROMPT VERSION: V1 (Milestone 1 Baseline)
+PURPOSE: Baseline study planner prompt from Milestone 1 for comparative benchmarking.
+CHANGES FROM PREVIOUS: Initial baseline prompt (unstructured text/table generation).
+EXPECTED OUTPUT: Unstructured text or Markdown table with timetable and assumptions.
+LIMITATIONS: Lacks deterministic JSON schema; allows time math errors and hallucinated
+durations; cannot be reliably parsed by automated Python verification.
+================================================================================
+
+Act as a student study planner. Create a realistic daily study timetable using the following inputs:
+
+Subjects: {subjects_summary}
+Exam dates: {exam_dates_summary}
+Available study time: {available_hours} hours daily
+Priority: {priorities_summary}
+
+Allocate time according to urgency and priority. Include specific study sessions, short breaks and revision. Do not exceed {available_hours} study hours. Present the result in a table with time, subject, task and duration. If any information is missing, state your assumptions.

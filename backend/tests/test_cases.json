@@ -1,0 +1,189 @@
+{
+  "test_cases": [
+    {
+      "id": "scenario_1",
+      "name": "Normal three-subject study plan",
+      "description": "Standard balanced academic workload with three subjects and 4 hours available",
+      "inputs": {
+        "subjects": [
+          {"subject": "Automata Theory", "exam_in_days": 3, "priority": "High"},
+          {"subject": "C Programming", "exam_in_days": 5, "priority": "Medium"},
+          {"subject": "AI/ML", "exam_in_days": 7, "priority": "Medium"}
+        ],
+        "available_hours": 4.0,
+        "start_time": "09:00"
+      },
+      "expected": {
+        "valid": true,
+        "max_study_minutes": 240,
+        "min_sessions": 3
+      }
+    },
+    {
+      "id": "scenario_2",
+      "name": "One high-priority examination approaching",
+      "description": "Urgent exam in 1 day requires heavy focus and prime morning allocation",
+      "inputs": {
+        "subjects": [
+          {"subject": "Operating Systems", "exam_in_days": 1, "priority": "High"},
+          {"subject": "Web Tech", "exam_in_days": 12, "priority": "Low"}
+        ],
+        "available_hours": 3.5,
+        "start_time": "08:30"
+      },
+      "expected": {
+        "valid": true,
+        "primary_focus_subject": "Operating Systems",
+        "max_study_minutes": 210
+      }
+    },
+    {
+      "id": "scenario_3",
+      "name": "Multiple examinations on nearby dates",
+      "description": "Crunch period with three exams within 2-4 days",
+      "inputs": {
+        "subjects": [
+          {"subject": "Discrete Mathematics", "exam_in_days": 2, "priority": "High"},
+          {"subject": "Computer Networks", "exam_in_days": 3, "priority": "High"},
+          {"subject": "Database Management", "exam_in_days": 4, "priority": "High"}
+        ],
+        "available_hours": 5.0,
+        "start_time": "08:00"
+      },
+      "expected": {
+        "valid": true,
+        "max_study_minutes": 300
+      }
+    },
+    {
+      "id": "scenario_4",
+      "name": "Four-hour daily limit strictly enforced",
+      "description": "Verification that study minutes do not exceed 240 minutes",
+      "inputs": {
+        "subjects": [
+          {"subject": "Software Engineering", "exam_in_days": 6, "priority": "Medium"},
+          {"subject": "Linear Algebra", "exam_in_days": 4, "priority": "High"}
+        ],
+        "available_hours": 4.0,
+        "start_time": "10:00"
+      },
+      "expected": {
+        "valid": true,
+        "max_study_minutes": 240
+      }
+    },
+    {
+      "id": "scenario_5",
+      "name": "Insufficient available time",
+      "description": "3 subjects entered but only 1.0 hour available; triggers capacity warning",
+      "inputs": {
+        "subjects": [
+          {"subject": "Data Structures", "exam_in_days": 2, "priority": "High"},
+          {"subject": "Algorithms", "exam_in_days": 4, "priority": "High"},
+          {"subject": "Computer Architecture", "exam_in_days": 5, "priority": "Medium"}
+        ],
+        "available_hours": 1.0,
+        "start_time": "18:00"
+      },
+      "expected": {
+        "max_study_minutes": 60
+      }
+    },
+    {
+      "id": "scenario_6",
+      "name": "Overlapping AI-generated sessions (Validator Test)",
+      "description": "Synthetic invalid schedule with overlapping time slots",
+      "test_type": "validator_negative",
+      "sessions": [
+        {"start": "09:00", "end": "10:30", "subject": "Math", "task": "Calculus", "type": "study", "duration_min": 90},
+        {"start": "10:00", "end": "11:15", "subject": "Physics", "task": "Optics", "type": "study", "duration_min": 75}
+      ],
+      "available_hours": 4.0,
+      "expected": {
+        "valid": false,
+        "error_contains": "overlapping"
+      }
+    },
+    {
+      "id": "scenario_7",
+      "name": "Invalid time intervals and duration mismatch (Validator Test)",
+      "description": "Synthetic invalid schedule with end <= start and incorrect duration_min",
+      "test_type": "validator_negative",
+      "sessions": [
+        {"start": "11:00", "end": "10:00", "subject": "Chemistry", "task": "Organic chem", "type": "study", "duration_min": 60},
+        {"start": "11:15", "end": "12:15", "subject": "Biology", "task": "Genetics", "type": "study", "duration_min": 90}
+      ],
+      "available_hours": 4.0,
+      "expected": {
+        "valid": false,
+        "error_contains": "later than start time"
+      }
+    },
+    {
+      "id": "scenario_8",
+      "name": "Adaptive rescheduling after missed session",
+      "description": "Student missed 60m morning session; engine redistributes remaining work",
+      "inputs": {
+        "original_schedule": {
+          "sessions": [
+            {"start": "09:00", "end": "10:00", "subject": "Automata Theory", "task": "DFA proofs", "type": "study", "duration_min": 60, "completed": false},
+            {"start": "10:00", "end": "10:15", "subject": "Break", "task": "Rest", "type": "break", "duration_min": 15},
+            {"start": "10:15", "end": "11:15", "subject": "C Programming", "task": "Pointers", "type": "study", "duration_min": 60, "completed": false}
+          ]
+        },
+        "subjects": [
+          {"subject": "Automata Theory", "exam_in_days": 3, "priority": "High"},
+          {"subject": "C Programming", "exam_in_days": 5, "priority": "Medium"}
+        ],
+        "missed_session": "Missed Automata Theory at 09:00 due to lab meeting",
+        "remaining_hours": 3.0,
+        "new_start_time": "13:00"
+      },
+      "expected": {
+        "valid": true,
+        "max_study_minutes": 180
+      }
+    },
+    {
+      "id": "scenario_9",
+      "name": "Reduced availability after rescheduling",
+      "description": "Student had 4h originally, but afternoon availability dropped to 1.5h",
+      "inputs": {
+        "original_schedule": {
+          "sessions": [
+            {"start": "09:00", "end": "10:15", "subject": "Automata Theory", "task": "DFA proofs", "type": "study", "duration_min": 75, "completed": true},
+            {"start": "10:15", "end": "10:30", "subject": "Break", "task": "Rest", "type": "break", "duration_min": 15},
+            {"start": "10:30", "end": "12:00", "subject": "C Programming", "task": "Pointers", "type": "study", "duration_min": 90, "completed": false}
+          ]
+        },
+        "subjects": [
+          {"subject": "Automata Theory", "exam_in_days": 3, "priority": "High"},
+          {"subject": "C Programming", "exam_in_days": 5, "priority": "Medium"}
+        ],
+        "missed_session": "Emergency department errand cut afternoon short",
+        "remaining_hours": 1.5,
+        "new_start_time": "15:00"
+      },
+      "expected": {
+        "valid": true,
+        "preserves_completed": true,
+        "max_remaining_minutes": 90
+      }
+    },
+    {
+      "id": "scenario_10",
+      "name": "Empty or malformed AI response handling",
+      "description": "Test resilience against empty response, garbage text, or malformed JSON",
+      "test_type": "json_parser_resilience",
+      "inputs": [
+        "",
+        "I am an AI and here is your schedule: Monday Math, Tuesday C",
+        "```json\n{broken json\n```",
+        "<think>pondering life</think>{\"sessions\": [{\"start\": \"09:00\", \"end\": \"10:00\", \"subject\": \"Math\", \"task\": \"Algebra\", \"type\": \"study\", \"duration_min\": 60}], \"assumptions\": []}"
+      ],
+      "expected": {
+        "handles_gracefully": true
+      }
+    }
+  ]
+}
